@@ -8,5 +8,4 @@ console.log(foods.indexOf("Kapraw"));
 foods.push("banana", "icecream", "cake");
 console.log(foods);
 // ? CHALLENGES: Look at the Array methods slide. Pick one method to check if your most favorite food is existed in the array or not? (hint: return as boolean)
-foods.includes("Kapraw");
 console.log(foods.includes("Kapraw"));

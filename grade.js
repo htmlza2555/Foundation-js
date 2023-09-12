@@ -1,6 +1,6 @@
 function grade(score) {
   if (score > 100 || score < 0 || score !== "number") {
-    console.log("Please Input Number 1-100");
+    console.log("Please Input Number 0-100");
     return;
   }
   if (score >= 80) {
