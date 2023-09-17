@@ -97,3 +97,40 @@
 //   }
 // };
 // fizzBuzz(20);
+// const arr2 = [3, 2, 1, 12, 13, 11];
+// arr2.sort((a, b) => a - b);
+
+// console.log("15.Try Array.sort(): ");
+// console.log(arr2); // [1, 11, 12, 13, 2, 3]
+// console.log("-------------------------------------------------");
+
+// const fizzBuzz = (n) => {
+//   for (let i = 1; i <= n; i++) {
+//     if (i % 5 === 0 && i % 3 === 0) {
+//       console.log("FizzBuzz");
+//     } else if (i % 5 === 0) {
+//       console.log("Buzz");
+//     } else if (i % 3 === 0) {
+//       console.log("Fizz");
+//     } else {
+//       console.log(i);
+//     }
+//   }
+// };
+// console.log("8.");
+// fizzBuzz(20);
+// console.log("-------------------------------------------------");
+const mapMean = (arr) => {
+  arr.map((i) => mean(i));
+  return mapMean;
+};
+console.log("19.mapMean");
+console.log(
+  mapMean([
+    [
+      [1, 2, 3],
+      [100, 200],
+      [10, 20],
+    ],
+  ])
+);
