@@ -1,136 +1,165 @@
-// const array = [
-//   [1, 2, 3],
-//   [100, 200],
-//   [10, 20],
-// ];
-// const map_Mean = (arr) => {
-//   for (let i = 0; i < arr.length; i++) {}
+// // // const isMember = (value, arr) => {
+// // //   for (let i = 0; i < arr.length; i++) {
+// // //     if (arr[i] === value) {
+// // //       return true;
+// // //     }
+// // //   }
+// // //   return false;
+// // // };
+
+// // // console.log(isMember(5, [1, 3, 7, 12])); // false
+// // // console.log(isMember("john", ["jane", "jim", "john"])); // true
+
+// // // const arr = [10, 20, 10, 20, 30, 50, 60, 100];
+// // // const unique = (arr) => {
+// // //   return arr.reduce((prev, curr) => {
+// // //     if (isMember(curr, prev)) {
+// // //       return prev;
+// // //     } else {
+// // //       prev.push(curr);
+// // //       return prev;
+// // //     }
+// // //   }, []);
+// // // };
+
+// // // console.log(unique(arr)); // [10, 20, 30, 50, 60, 100]
+// // // function summarize(text, trail, len) {
+// // //   if (len < 3 || text.length <= len) {
+// // //     return text.length <= len ? text : "";
+// // //   }
+
+// // //   let truncated = text.substr(0, len - trail.length);
+
+// // //   if (text.charAt(truncated.length) !== " ") {
+// // //     const lastSpace = truncated.lastIndexOf(" ");
+// // //     if (lastSpace !== -1) {
+// // //       truncated = truncated.substr(0, lastSpace);
+// // //     }
+// // //   }
+
+// // //   return truncated.trim() + trail;
+// // // }
+
+// // // const articleCleverse =
+// // //   "I am from Cleverse Academy! Today, I’m here to teach you some JavaScript programming";
+
+// // // console.log(summarize(articleCleverse, " ...", 30)); // "I am from Cleverse Academy! ..."
+
+// // // const articleFoo = "Good morning ladies and gentlemen";
+
+// // // console.log(summarize(articleFoo, " ...", 2)); // ""
+// // // console.log(summarize(articleFoo, " ...", 10)); // "Good ..."
+// // // console.log(summarize(articleFoo, " ...", 20)); // "Good morning ..."
+// // // console.log(summarize(articleFoo, " ...", 25)); // "Good morning ladies ..."
+// // function mode(arr) {
+// //   if (arr.length === 0) return null;
+
+// //   let modeMap = {};
+// //   let maxCount = 1;
+// //   let modes = [];
+
+// //   for (let i = 0; i < arr.length; i++) {
+// //     let el = arr[i];
+// //     if (modeMap[el] === undefined) modeMap[el] = 1;
+// //     else modeMap[el]++;
+
+// //     if (modeMap[el] > maxCount) {
+// //       modes = [el];
+// //       maxCount = modeMap[el];
+// //     } else if (modeMap[el] === maxCount) {
+// //       modes.push(el);
+// //     }
+// //   }
+
+// //   return modes.length === 1 ? modes[0] : null;
+// // }
+
+// // console.log(mode([2, 5, 2, 4, 5])); // null
+// // console.log(mode([1, 2, 1, 4, 5, 6, 2, 1])); // 1
+
+// // function mapMode(arr) {
+// //   return arr.map((innerArr) => mode(innerArr));
+// // }
+
+// // const arr = [
+// //   [1, 2, 3, 1],
+// //   [100, 200],
+// //   [10, 20],
+// // ];
+
+// // console.log(mapMode(arr));
+
+// // function transpose(bits, w, h) {
+// //   if (bits.length !== w * h) {
+// //     return "Invalid dimensions for the given array size.";
+// //   }
+
+// //   const transposedImage = [];
+// //   for (let i = 0; i < h; i++) {
+// //     transposedImage.push(bits.slice(i * w, (i + 1) * w));
+// //   }
+
+// //   return transposedImage;
+// // }
+
+// // const imageBytes = [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1];
+
+// // console.log(transpose(imageBytes, 8, 2));
+// // // Output:
+// // // [
+// // //  [1, 0, 1, 0, 0, 0, 0, 0],
+// // //  [1, 0, 1, 0, 1, 1, 1, 1]
+// // // ]
+
+// // console.log(transpose(imageBytes, 2, 8));
+// // // Output:
+// // // [
+// // //  [1, 0],
+// // //  [1, 0],
+// // //  [0, 0],
+// // //  [0, 0],
+// // //  [1, 0],
+// // //  [1, 0],
+// // //  [1, 1],
+// // //  [1, 1]
+// // // ]
+
+// const image = [1, 0, 1, 0, 1, 1]; // len = 6
+
+// const transposable = (arr, w, h) => {
+//   return arr.length === h * w && arr.length % w === 0;
 // };
 
-// mapMean(arr); // [2, 150, 15]
+// console.log(transposable(image, 2, 3)); // true
+// console.log(transposable(image, 6, 1)); // true
+// console.log(transposable(image, 4, 2)); // false
+function markdownToHTML(md) {
+  const lines = md.split("\n");
+  let html = "";
 
-// const initArr = (val, len) => {
-//   if (len < 0) return;
-//   let intVal = [];
-//   for (let i = 0; i < len; i++) {
-//     intVal += val;
-//   }
-//   console.log(intVal);
-// };
-// console.log("17.initArr: ");
-// initArr(0, 5);
+  for (const line of lines) {
+    if (line.startsWith("# ")) {
+      const headerLevel = line.lastIndexOf("#") - line.indexOf("#") + 1;
+      const headerText = line.substring(headerLevel + 1).trim();
+      html += `<h${headerLevel}>${headerText}</h${headerLevel}>`;
+    } else if (line.startsWith("## ")) {
+      const headerLevel = line.lastIndexOf("#") - line.indexOf("#") + 2;
+      const headerText = line.substring(headerLevel + 1).trim();
+      html += `<h${headerLevel}>${headerText}</h${headerLevel}>`;
+    } else if (line.trim().length > 0) {
+      html += `<p>${line}</p>`;
+    }
+  }
 
-// const fizzBuzz = (n) => {
-//   if (n < 0) return;
-//   const a = [];
-//   for (let i = 1; i <= n; i += 1) {
-//     if (i % 3 === 0 && i % 5 === 0) {
-//       console.log("FizzBuzz");
-//       replace
-//     }
-//     a.push(i);
-//   }
-//   return a;
-// };
-// console.log(fizzBuzz(20));
-// function range(start, end) {
-//   var myArray = [];
-//   for (var i = start; i <= end; i += 1) {
-//     myArray.push(i);
-//   }
-//   return myArray;
-// }
-// console.log(range(4, 12));
-// function isMember(mem, arr) {
-//   for (let i = 0; i < a.length; i++) {
-//     if
-//   }
-// }
+  return html;
+}
 
-// function draw(n) {
-//   let star = "";
-//   for (let i = 1; i <= n; i++) {
-//     for (let j = 1; j <= n; j++) {
-//       console.log((star += "*"));
-//     }
-//   }
-// }
-// console.log("5.");
-// draw(5);
+const md = `
+  # This is H1
+  
+  ## This is H2
+  
+  This is a paragraph
+  `;
 
-// function draw(n) {
-//   let star = "";
-//   for (let i = 1; i <= n; i++) {
-//     for (let j = 1; j <= n; j++) {
-//       star += "*";
-//     }
-//     star += "\n";
-//   }
-//   console.log(draw(5));
-// }
-
-// const filterLt = (n, arr3) => {
-//   const a = [];
-//   for (let i = 0; i < arr3.length; i++) {
-//     if (arr3[i] < n) {
-//       a.push(arr3[i]);
-//     }
-//   }
-//   return a;
-// };
-
-// const arr3 = [120, 112, 111, 130, 169, 101];
-
-// console.log(filterLt(0, arr3)); // []
-// console.log(filterLt(112, arr3)); // [111, 101]
-// const fizzBuzz = (n) => {
-//   let n1 = 1,
-//     newN;
-//   console.log(n1);
-//   for (let i = 1; i < n; i++) {
-//     if (newN % 3 === 0 && newN % 5 === 0) {
-//       return "FizzBuzz";
-//     }
-//     newN = n1 + 1;
-//     console.log(newN);
-//     n1 = newN;
-//   }
-// };
-// fizzBuzz(20);
-// const arr2 = [3, 2, 1, 12, 13, 11];
-// arr2.sort((a, b) => a - b);
-
-// console.log("15.Try Array.sort(): ");
-// console.log(arr2); // [1, 11, 12, 13, 2, 3]
-// console.log("-------------------------------------------------");
-
-// const fizzBuzz = (n) => {
-//   for (let i = 1; i <= n; i++) {
-//     if (i % 5 === 0 && i % 3 === 0) {
-//       console.log("FizzBuzz");
-//     } else if (i % 5 === 0) {
-//       console.log("Buzz");
-//     } else if (i % 3 === 0) {
-//       console.log("Fizz");
-//     } else {
-//       console.log(i);
-//     }
-//   }
-// };
-// console.log("8.");
-// fizzBuzz(20);
-// console.log("-------------------------------------------------");
-const mapMean = (arr) => {
-  arr.map((i) => mean(i));
-  return mapMean;
-};
-console.log("19.mapMean");
-console.log(
-  mapMean([
-    [
-      [1, 2, 3],
-      [100, 200],
-      [10, 20],
-    ],
-  ])
-);
+console.log(markdownToHTML(md));

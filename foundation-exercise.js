@@ -225,6 +225,20 @@ console.log("-------------------------------------------------");
 // 13.Write a function mean(arr)
 // mean(arr) returns the mean average value of arr dataset (represented as an array).
 // If any one of arr members are of non-number type, mean(arr) returns null
+// *********TA code***********
+// const mean = (arr) => {
+//   let sum = 0
+
+//   const isAllNumber = arr.every((val) => typeof val === 'number') //ใช้ arr.every เช็คทุกตัว
+
+//   if (!isAllNumber) return null
+
+//   arr.forEach((n) => {
+//     sum += n
+//   })
+
+//   return sum / arr.length
+// }
 const mean = (arr) => {
   const average = arr.reduce((a, b) => {
     if (typeof a !== "number" || typeof b !== "number") {
@@ -432,12 +446,279 @@ console.log("-------------------------------------------------");
 // 2 Write a function drawDown(chart)
 // prime(n) returns an array of first n prime numbers
 // Hint: keep a list of prime numbers, and check subsequent number iterations against the list.
-const drawDown = (chart) => {};
+// const isPrime = (n) => {
+//   for (let i = 2; i <= n / 2; i++) {
+//     if (n % i === 0) {
+//       return false;
+//     }
+//   }
+//   return true;
+// };
+const check_prime = (num) => {
+  if (num === 1) {
+    return false;
+  } else if (num === 2) {
+    return true;
+  } else {
+    for (var x = 2; x < num; x++) {
+      if (num % x === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+};
+const prime = (n) => {
+  let nPrime = [];
+  let i = 2;
+  while (nPrime.length < n) {
+    if (check_prime(i)) {
+      nPrime.push(i);
+    }
+    i = i === 2 ? i + 1 : i + 2;
+  }
+  console.log(nPrime);
+};
+console.log("2.prime:");
+prime(4);
+prime(5);
 console.log("-------------------------------------------------");
 
 // 3 Write a function drawDown(chart)
 // drawDown(chart) returns the biggest downward movement within the chart points
 // Where chart is points in a chart, represented as an array of numbers: [110, 105, 95, 9, 80, 17, 120, 115, 11]
 // Hint: you must keep states
+const chart = [110, 105, 95, 9, 80, 17, 120, 115, 11];
+let drawDown = chart.reduce((prev, curr) => {
+  if (curr > prev) {
+    prev = curr;
+    return prev - curr;
+  } else {
+    prev = 0;
+    return prev;
+  }
+});
+
+console.log(drawDown);
+console.log("-------------------------------------------------");
+
+console.log("*****  CHALLENGES  *****");
+// 1. Write a function summarize(text, trail, len)
+
+// summarize(text, trail, len) returns the shortest preview of text.
+
+// If text fits within len, then summarize returns the whole text.
+
+// If text is longer than len, then summarize will truncate text and appends trail (e.g.  ... with a whitespace at the front) to the return string.
+
+// The whole return string must fit into len, i.e. its length must not exceed len.
+
+// The returned text must contain only whole words (i.e. words are separated by whitespace  ). Partial words are not allowed.
+
+// If len is smaller than 3, and text does not fit len, summarize returns an empty string "".
+
+function summarize(text, trail, len) {
+  if (len < 3 || text.length <= len) {
+    return text.length <= len ? text : "";
+  }
+
+  let truncated = text.substr(0, len - trail.length);
+
+  if (text.charAt(truncated.length) !== " ") {
+    const lastSpace = truncated.lastIndexOf(" ");
+    if (lastSpace !== -1) {
+      truncated = truncated.substr(0, lastSpace);
+    }
+  }
+
+  return truncated.trim() + trail;
+}
+
+const articleCleverse =
+  "I am from Cleverse Academy! Today, I’m here to teach you some JavaScript programming";
+
+console.log(summarize(articleCleverse, " ...", 30)); // "I am from Cleverse Academy! ..."
+
+const articleFoo = "Good morning ladies and gentlemen";
+
+console.log(summarize(articleFoo, " ...", 2)); // ""
+console.log(summarize(articleFoo, " ...", 10)); // "Good ..."
+console.log(summarize(articleFoo, " ...", 20)); // "Good morning ..."
+console.log(summarize(articleFoo, " ...", 25)); // "Good morning ladies ..."
+
+console.log("-------------------------------------------------");
+
+// 2. Write a function mode(arr)
+
+// mode(arr) returns the statistical mode from the dataset arr (represented as an array).
+
+// A dataset's mode is the value which appears most frequently in a dataset. If none is found, or if there are no clear winner, mode(arr) returns null
+
+// Hint: It can be done in 2 ways: the first is by using a HashMap, the second is by using an Object. You may need to research how to use HashMap in JavaScript.
+
+function mode(arr) {
+  if (arr.length === 0) return null;
+
+  let modeMap = {};
+  let maxCount = 1;
+  let modes = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    let el = arr[i];
+    if (modeMap[el] === undefined) modeMap[el] = 1;
+    else modeMap[el]++;
+
+    if (modeMap[el] > maxCount) {
+      modes = [el];
+      maxCount = modeMap[el];
+    } else if (modeMap[el] === maxCount) {
+      modes.push(el);
+    }
+  }
+
+  return modes.length === 1 ? modes[0] : null;
+}
+
+console.log(mode([2, 5, 2, 4, 5])); // null
+console.log(mode([1, 2, 1, 4, 5, 6, 2, 1])); // 1
+
+console.log("-------------------------------------------------");
+
+// 2.1 Write a function mapMode(arr)
+
+// mapMode(arr) takes in an array of arrays, and returns an array of numbers whose element at index i maps to the statistical mode of arr[i].
+
+// You are allowed to use mode(arr) written above.
+
+function mapMode(arr) {
+  return arr.map((innerArr) => mode(innerArr));
+}
+
+const arr5 = [
+  [1, 2, 3, 1],
+  [100, 200],
+  [10, 20],
+];
+
+console.log(mapMode(arr5));
+
+console.log("-------------------------------------------------");
+
+// 3. Write a function transpose(bits, w, h)
+
+// transpose(bits, w, h) transposes an array bits into arrays of arrays, based on the value of w, h, and to some extent bits.
+
+// For example, consider this scenario: we are working on a image processing engine.
+
+// The image files are represented on disks or in memory as just a long list (array) of bytes, much like any files:
+
+// // How files are represented on disk as arrays of bits,
+// // and when they are first loaded to memory.
+// ;[1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0]
+// Now, let's assume that the image file format for our programs are just simple 1-bit bitmap files, that is, each bit represent a pixel, with 0 being a black pixel and 1 being a white one.
+
+// Although our simple app is only limited to processing 1-bit images, the resolution (the width and the height of the image) can vary file by file.
+
+// Without image compression, this means that larger images will have larger length (file size).
+
+// Because displays are 2D in nature - to display the bitmap image, we need to do some transposing when rendering images to the screens.
+
+// And because the width and height of images may vary, we need a way to map the 1D array into 2D one.
+
+// Implement the function that can performs the following operations:
+
+function transpose(bits, w, h) {
+  if (bits.length !== w * h) {
+    return "Invalid dimensions for the given array size.";
+  }
+
+  const transposedImage = [];
+  for (let i = 0; i < h; i++) {
+    transposedImage.push(bits.slice(i * w, (i + 1) * w));
+  }
+
+  return transposedImage;
+}
+
+const imageBytes = [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1];
+
+console.log(transpose(imageBytes, 8, 2));
+// Output:
+// [
+//  [1, 0, 1, 0, 0, 0, 0, 0],
+//  [1, 0, 1, 0, 1, 1, 1, 1]
+// ]
+
+console.log(transpose(imageBytes, 2, 8));
+// Output:
+// [
+//  [1, 0],
+//  [1, 0],
+//  [0, 0],
+//  [0, 0],
+//  [1, 0],
+//  [1, 0],
+//  [1, 1],
+//  [1, 1]
+// ]
+
+console.log("-------------------------------------------------");
+
+// 4. Write a function transposable(arr, w, h)
+
+// Related to transpose(arr, w, h) above
+
+// transposable(arr, w, h) returns a boolean, indicating whether the array arr could be transposed with w and h. It is considered transposable if the resulting 2D array can form a rectangle (all rows have uniform length).
+
+const image = [1, 0, 1, 0, 1, 1]; // len = 6
+
+const transposable = (arr, w, h) => {
+  return arr.length === h * w && arr.length % w === 0;
+};
+
+console.log(transposable(image, 2, 3)); // true
+console.log(transposable(image, 6, 1)); // true
+console.log(transposable(image, 4, 2)); // false
+
+console.log("-------------------------------------------------");
+
+// 5. Write a function markdownToHTML(md)
+
+// markdownToHTML(md) takes in a Markdown string md and returns a HTML string parsed from md.
+
+// You can just parse the header tags (<h1>, <h2>, and so on) and the paragraph tag <p> and ignore the rest of Markdown standard.
+
+// Hint: JavaScript strings have method s.startsWith(p) which returns a boolean indicating whether s is prefixed with p
+
+function markdownToHTML(md) {
+  const lines = md.split("\n");
+  let html = "";
+
+  for (const line of lines) {
+    if (line.startsWith("# ")) {
+      const headerLevel = line.lastIndexOf("#") - line.indexOf("#") + 1;
+      const headerText = line.substring(headerLevel + 1).trim();
+      html += `<h${headerLevel}>${headerText}</h${headerLevel}>`;
+    } else if (line.startsWith("## ")) {
+      const headerLevel = line.lastIndexOf("#") - line.indexOf("#") + 2;
+      const headerText = line.substring(headerLevel + 1).trim();
+      html += `<h${headerLevel}>${headerText}</h${headerLevel}>`;
+    } else if (line.trim().length > 0) {
+      html += `<p>${line}</p>`;
+    }
+  }
+
+  return html;
+}
+
+const md = `
+# This is H1
+
+## This is H2
+
+This is a paragraph
+`;
+
+console.log(markdownToHTML(md));
 
 console.log("-------------------------------------------------");
